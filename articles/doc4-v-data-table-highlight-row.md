@@ -147,7 +147,7 @@ https://v2.vuetifyjs.com/en/components/data-tables/
 </script>
 ```
 
-![alt text](image-1.png)
+![alt text](/images/image-1.png)
 
 例えばこのようなテーブルで、カロリーが高すぎる(300kcal以上)の行を赤くハイライトしたいとします。
 その場合、v-slotを使って以下のように実装します。
@@ -187,7 +187,7 @@ https://v2.vuetifyjs.com/en/components/data-tables/
 ```
 
 
-![alt text](image-2.png)
+![alt text](/images/image-2.png)
 
 上記のようにハイカロリーなデザートを赤くハイライトすることができました。
 
