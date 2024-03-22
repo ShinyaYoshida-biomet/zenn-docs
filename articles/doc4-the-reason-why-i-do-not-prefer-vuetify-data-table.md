@@ -1,5 +1,5 @@
 ---
-title: "Vuetifyのv-data-tableがなぜ使いにくいか、言語化してみた"
+title: "v-data-tableで特定以上の値を持つ行をハイライトする方法"
 emoji: "📊"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["Vue", "JavaScript", "Vuetify", "UI"]
@@ -7,9 +7,11 @@ published: true
 ---
 
 
+日本語で調べてもドンピシャな記事が出てこなかったので、備忘録としてメモを残しておきます。
+似ている記事としては下記です。
 
-# 本記事について
-VuetifyはVue.jsのためのデザインフレームワークです。
+- [Vuetifyの v-data-tableで奇数行の背景色を変える](https://qiita.com/chanchanko/items/ea918401e608d3fc4d13)
+- [v-data-tableにCSVをインポートし、空欄があった場合にはその項目の色を変える](https://teratail.com/questions/278428)
 
 
 # 環境情報
@@ -20,8 +22,9 @@ VuetifyはVue.jsのためのデザインフレームワークです。
 
 
 
-# とりあえず使ってみる
-Vuetify2系のsampleスクリプトをそのままUIで表示してみます。
+# 実装例
+
+Vuetify2系のsampleスクリプトを例にしてみます。
 https://v2.vuetifyjs.com/en/components/data-tables/
 
 
@@ -40,7 +43,7 @@ https://v2.vuetifyjs.com/en/components/data-tables/
 
 <script>
   export default {
-    name: 'HelloWorld',
+    name: 'Example',
     data () {
       return {
         headers: [
@@ -144,109 +147,56 @@ https://v2.vuetifyjs.com/en/components/data-tables/
 </script>
 ```
 
+![alt text](image-1.png)
 
-# 何が問題なのか
-
-主にデザインの制御がしにくいことが原因。
-何が原因で制御が難しくなっているか。その原因をbreak downし、言語化していきます。
-
-
-## カスタマイズのために、子エレメントを定義する必要がある
-
-
-### 行ごとのスタイルについて
-
-
-
-### ツールチップによる省略表示について
-
-
-## propertyによる制御とstyleによる制御が混在している
-
-
-### テーブルのサイズ(幅/高さ)について
-
-テーブルサイズの調整は、テーブルの導入を決めた時点で避けては通れない基本的なタスクになる。
-しかし、その基本的なタスクを処理するのにも、Vuetifyの`v-data-table`は直感的ではないため、時間をロスする人がいると思われる。
-
-例えば、tableが画面(もしくは親コンポーネント)全体に占める割合を80%かつ、heightを300pxにしたいとする。
-この時、`v-data-table`には `height` プロパティは存在しているが、`width` プロパティが存在しない(😱 驚愕)。
-table自体の幅を変更したいならば、一度親要素のwidthを変更するか、別にstyleを当てる必要がある。
-
-すなわち、
+例えばこのようなテーブルで、カロリーが高すぎる(300kcal以上)の行を赤くハイライトしたいとします。
+その場合、v-slotを使って以下のように実装します。
 
 ```vue
 <template>
   <div>
     <v-data-table
-      class="table-desserts"
+      style="max-width: 800px; width: 90%; margin: 0 auto"
       :headers="headers"
       :items="desserts"
       :items-per-page="5"
-      :height="300"      
-    ></v-data-table>
+    >
+      <template v-slot:item="{ item }">
+        <tr :class="{ 'highlight-row': item.calories > 300 }">
+          <td>{{ item.name }}</td>
+          <td>{{ item.calories }}</td>
+          <td>{{ item.fat }}</td>
+          <td>{{ item.carbs }}</td>
+          <td>{{ item.protein }}</td>
+          <td>{{ item.iron }}</td>
+        </tr>
+      </template>
+    </v-data-table>
   </div>
 </template>
 
-<style scoped>
-.table-desserts {
-  width: 80%;
+<!-- scriptは変更なしなので省略 -->
+
+<style>
+.highlight-row {
+  /* カラーコードはお好みで。 */
+  background-color: #f26651;
 }
 </style>
-```
-もしくは、
 
-```vue
-<template>
-  <div>
-    <v-data-table
-      style="width: 80%;"
-      :headers="headers"
-      :items="desserts"
-      :items-per-page="5"
-      :height="300"      
-    ></v-data-table>
-  </div>
-</template>
 ```
 
-といった書き方になる。
-本来あるコンポーネントの高さ(`height`)と幅(`width`)は同様の方法で指定できて欲しいのに、
-`v-data-table`ではそうなっていない。直感的でない上に不便極まりない。
 
-別に最初からclassを定義して(`height`と`width`)指定するか、`v-data-table`内でstyle定義すればいいじゃんという意見もあるかもしれないが、
-それならば`height`と言うまどろっこしいプロパティを `v-data-table` から消してほしい。
+![alt text](image-2.png)
 
+上記のようにハイカロリーなデザートを赤くハイライトすることができました。
 
-### カラムごとの幅について
+# なぜ上記の方法でうまくいくのか
 
+`v-slot`を使うことで、デフォルトのレンダリングロジックをオーバーライドすることができます。
+つまり、v-data-tableを使ってレンダリングされるはずだったデフォルトの行（`<tr>` 要素）とその子要素（`<td>` 要素）が、
+`<template v-slot:item="{ item }">` の中で定義した要素に置き換わります。
 
-# SOLIDの原則から考えみる
+そのため、`<tr>` 要素に対して`:class="{ 'highlight-row': item.calories > 300 }"` を指定することで、
+カロリーが300kcal以上の行に対してだけ、`highlight-row` (背景を赤く着色する)クラスが適用されるようになります。
 
-## 単一責任の原則に反している(SOLIDのS)
-
-- headerのスタイルとbodyのスタイルが分離されていない（SOLID)
-- paginationのスタイル
-
-
-## 単一責任の原則に反している(SOLIDのI)
-
-# 申し送り事項
-- Vuetify3系ならもっとマシかもしれない。筆者はVuetify3系に移行する前にVue自体卒業し、React + MUIに染まってしまった。
-- MUIに慣れてしまったので、Vuetifyのデザインが使いにくいと感じることが多いだけかもしれない。
-  - もしVuetifyに慣れ親しんだ体になったらVuetifyの方が使いやすいのかもしれない。
-
-
-
-# 結び
-
-直感的でないと感じる項目の数だけ、Google検索の犠牲者が増える。
-例えば、「v-data-table 幅 カスタマイズ」とか「v-data-table 行 色指定」とか。
-さらにこれらの検索結果の上位の記事が必ずしも解決策を導いてくれるとは限らず、
-一人で泥沼にハマったり上司ともども頭を悩ませたりした人は、私だけではないと思う。
-
-Vuetifyのデザインは、デフォルトのデザインが美しいと言われているが、
-その美しさの分デザインのカスタマイズが難しいという棘を持つバラのようなデザインフレームワークだと思う。
-そのバラの棘を折る勇気と根気を持つ人には、Vuetifyは最高のデザインフレームワークかもしれない。
-そうではない開発者は、棘がないけれど美しく咲きうる(カスタマイズ可能な)チューリップのようなフレームワーク(MUIやmantine等)を、
-あなたのプロジェクトという庭に植えてみてはいかがだろうか。
