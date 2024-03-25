@@ -3,7 +3,7 @@ title: "Vuetify の v-data-tableのfooter(ページネーション)をカスタ�
 emoji: "😺"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["Vue", "JavaScript", "Vuetify"]
-published: false
+published: true
 ---
 
 
