@@ -2,7 +2,7 @@
 title: "Frontend開発で役立つ正規表現検索5選"
 emoji: "🔍"
 type: "tech" # tech: 技術記事 / idea: アイデア
-topics: ["regex", "React", "TypeScript", "JavaScript", "VSCode"]
+topics: ["regex", "Tailwind", "TypeScript", "JavaScript", "VSCode"]
 published: false
 ---
 
