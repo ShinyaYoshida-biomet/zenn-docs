@@ -2,10 +2,9 @@
 title: "Frontend開発で役立つ正規表現検索5選"
 emoji: "🔍"
 type: "tech" # tech: 技術記事 / idea: アイデア
-topics: ["regex", "Tailwind", "TypeScript", "JavaScript", "VSCode"]
-published: false
+topics: ["Regex", "Tailwind", "React", "JavaScript", "VSCode"]
+published: true
 ---
-
 
 Frontend開発を続けていると、プロジェクト内のファイルが増えがちです。
 プロジェクト内やファイル内で「〇〇な記述があるファイルを見つけたい〜」といった要望がよくあるかと思います。
@@ -16,7 +15,7 @@ Frontend開発を続けていると、プロジェクト内のファイルが増
 
 ✅ Vscodeの正規表現を用いて検索すると便利です。
 
-![Image from Gyazo](/images/doc8/doc8-1.png)
+![Image-1](/images/doc8/doc8-1.png)
 
 # 1. 特定のモジュールのimportを見つけたい
 
@@ -128,9 +127,9 @@ to(.|\s){0,1}do
 toの間にスペースや`-`がある場合もキャッチするため、
 `(.|\s)`を使っています。
 
-```text
+
 ![Image-5](/images/doc8/doc8-5.png)
-```
+
 
 :::message
 - `{0,1}`は直前の文字が0回、もしくは1回繰り返されることを表す。
