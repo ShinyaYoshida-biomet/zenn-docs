@@ -11,9 +11,9 @@ React.jsでフロントエンド開発をしていると、MUIの美しさと便
 MUIを使用していると、特によく登場するのが, `Box`, `Container`, `Paper`, `Stack`などのwrapper系コンポーネントです。
 
 これらのコンポーネントは、それぞれ異なる目的のために設計されています。
-ですが今まで、個人的にその違いを明確に理解して使っていなかったことに気づきました。
-
+ですが今まで、個人的にその違いを明確に理解して使っていなかったことに気づきました💡。
 そろそろ `Box`, `Container`, `Paper`, `Stack`の違いを理解してみようと重い腰を上げた次第です。
+
 この記事では備忘録も兼ねて、MUIのwrapper系コンポーネントの違いをそれぞれ整理していきたいと思います。
 
 :::message
@@ -35,8 +35,8 @@ MUIを使用していると、特によく登場するのが, `Box`, `Container`
 用途が豊富ということは柔軟なスタイリングが可能です。
 対して、`Container`、`Stack`、`Paper`はそれぞれ特定の用途に特化したプロパティを持っています。
 
-✅ この柔軟さに起因しているのが、propertyの豊富さです。
-マージン、パディング、タイポグラフィ、カラー、レイアウト、ポジショニングなどのスタイリングプロパティを直接指定することができます。
+この柔軟さに起因しているのが、propertyの豊富さです。
+マージン、パディング、タイポグラフィ、カラー、レイアウト、ポジショニングなどの**スタイリングプロパティを直接指定**することができます。
 
 ```tsx
 <Box backgroundColor="rgba(0, 0, 0, 0.1)" margin="60px 0">
@@ -57,12 +57,19 @@ MUIを使用していると、特によく登場するのが, `Box`, `Container`
 
 
 柔軟性をもう一つ挙げつとするならば、`component`プロパティです。
-✅ `component`プロパティを指定することで異なるHTML要素をレンダリングすることも可能です。
+`component`プロパティを指定することで異なるHTML要素をレンダリングすることも可能です。
 
 ```tsx
 <Box component="span"/>
 <Box component="form">
 ```
+
+
+
+
+✅ `Box`はプロパティが豊富で柔軟なスタイリングが可能なコンポーネント。
+✅ `Box`は`div`のように使用できる。
+✅ `Box`は`component`プロパティを指定することで異なるHTML要素をレンダリングすることも可能。
 
 
 # Container
@@ -79,11 +86,12 @@ MUIを使用していると、特によく登場するのが, `Box`, `Container`
 Boxの説明の際に、
 >Container、Stack、Paperはそれぞれ特定の用途に特化したプロパティを持っています。
 
-と記載しましたが、Containerの場合の「特定の用途」とは中身を水平方向に中央配置することです。
+と記載しましたが、Containerの場合の「特定の用途」とは**中身を水平方向に中央配置する**ことです。
 
 ![alt text](/images/doc9/image9-1.png)
 
-✅ イメージとしては、`Container`の中身に対して、`<div style="margin: 0 auto;">`が適用されていると考えればわかりやすいかもしれません。
+イメージとしては、`Container`の中身に対して、
+`<div style="margin: 0 auto;">`が適用されていると考えればわかりやすいかもしれません。
 
 ※ あくまでイメージです。Containerで囲うのと上記のdiv要素を直接書くのとでは、挙動が異なることがあります。
 
@@ -94,6 +102,10 @@ Boxの説明の際に、
 <Container maxWidth="sm"></Container>
 ```
 
+✅ `Container`は中央配置を行うためのコンポーネント。
+✅ `Container`は`maxWidth`プロパティで中身の幅を制御できる。
+
+
 # Paper
 
 続いて[Paperコンポーネント](https://mui.com/material-ui/react-paper/)。
@@ -103,7 +115,7 @@ Boxの説明の際に、
 日訳
 > Paper Componentはコンテンツを浮き上がったような表面を表示するためのコンテナです。
 
-Containerの特定の用途が「中央配置」であるのに対し、Paperの特定の用途は「表面を浮き上がらせること」です。
+Containerの特定の用途が「中央配置」であるのに対し、Paperの特定の用途は **「表面を浮き上がらせること」** です。
 
 ```jsx
 <Paper sx={{ backgroundColor: "rgba(0, 0, 0, 0.1)", marginY: "60px" }}>
@@ -117,13 +129,18 @@ Containerの特定の用途が「中央配置」であるのに対し、Paperの
 
 
 角が丸くなって、影っぽい装飾がついているのがわかります。
-✅ ですのでPaperは`div`タグに、`border-radius`と`box-shadow`を適用したようなものと考えるとわかりやすいかもしれません。
+ですのでPaperは`div`タグに、`border-radius`と`box-shadow`を適用したようなものと考えるとわかりやすいかもしれません。
 
 ※ あくまでイメージです。Paperで囲うのと上記のdiv要素を直接書くのとでは、挙動が異なることがあります。
 
+
+✅ `Paper`は浮き上がった表面を表現するためのコンポーネント。
+✅ `Paper`は`border-radius`や`box-shadow`などの装飾が適用された`div`に近い.
+
+
 # Stack
 
-最後に[Paperコンポーネント](https://mui.com/material-ui/react-stack/)。
+最後に[Stackコンポーネント](https://mui.com/material-ui/react-stack/)。
 
 > Stack is a container component for arranging elements vertically or horizontally.
 
@@ -131,10 +148,10 @@ Containerの特定の用途が「中央配置」であるのに対し、Paperの
 > Stackは、要素を縦または横に並べるためのコンテナ・コンポーネントである。
 
 `Box`が多目的で柔軟なスタイリング(グリッドレイアウトや複雑な二次元レイアウト)が可能であるのに対して、
-`Stack`は水平 or 垂直方向の一次元レイアウトに特化したコンポーネントです。
+**`Stack`は水平 or 垂直方向の一次元レイアウトに特化**したコンポーネントです。
 
 
-✅ そのため、下記のような単純なレイアウトの場合、`Stack`を使うことでコードが簡潔になります。
+そのため、下記のような単純なレイアウトの場合、`Stack`を使うことでコードが簡潔になります。
 
 
 ```jsx
@@ -155,14 +172,58 @@ Containerの特定の用途が「中央配置」であるのに対し、Paperの
 
 ![alt text](/images/doc9/image9-4.png)
 
+上記の画像の通り、 `Box` + `flexDirection` を使用した時と同様の表現が `Stack` で可能であることがわかります。
+
 他にも、`direction`プロパティで並び方向を指定することができたり、
-✅ `divider`プロパティで要素間に区切り線を表示することもできます(👈 これ便利)。
+`divider`プロパティで要素間に区切り線を表示することもできます(👈 これ便利)。
+
+
+```tsx
+<h1>Stack / row方向</h1>
+<Stack spacing={2} direction="row">
+  <Box bgcolor="lightblue" p={2}>Item 1</Box>
+  <Box bgcolor="lightgreen" p={2}>Item 2</Box>
+  <Box bgcolor="lightcoral" p={2}>Item 3</Box>
+</Stack>
+
+<h1>Stack / divider</h1>
+<Stack spacing={2} divider={<Divider orientation="horizontal" flexItem />}>
+  <Box bgcolor="lightblue" p={2}>Item 1</Box>
+  <Box bgcolor="lightgreen" p={2}>Item 2</Box>
+  <Box bgcolor="lightcoral" p={2}>Item 3</Box>
+</Stack>
+```
+
+
+![alt text](/images/doc9/image9-5.png)
+
+
+
+✅ `Stack`は一次元レイアウトを容易にするためのコンポーネント。
+✅ `Stack`は`direction`プロパティで並び方向を指定することができる。
+✅ `Stack`は`divider`プロパティで要素間に区切り線を表示することができる。
+
+
+
+# Grid(2024/04/12 追記)
+
+他にもMUIのWrapper系コンポーネントとして、`Grid` があります。
+`Grid`は名前の通り、グリッドレイアウトを実現するためのコンポーネントです。
+`Container`が中央配置を、`Stack`が一次元レイアウトを担当するのに対し、
+`Grid`は二次元レイアウトを担当すると覚えるとわかりやすいかもしれません。
+
+`Grid`についてはversion1とversion2で使用方法が異なるため、
+具体的な使用方法やコードの例については[公式ドキュメント](https://mui.com/material-ui/react-grid/)を参照してください。
+(近々、`Grid`についても記事を書いてみようと思います。)
+
+*(2024/04/12 追記終わり)*
 
 
 
 # まとめ
 
 以上、MUIのwrapper系コンポーネント(Box, Container, Paper, Stack)の違いについて整理してみました。
+
 ✅ 最後に、それぞれの特徴を表形式でまとめておきます。
 
 | コンポーネント名 | 特徴と概要 |
@@ -179,3 +240,6 @@ Containerの特定の用途が「中央配置」であるのに対し、Paperの
 
 私個人だけではなくどなたかの備忘録として、もしこの記事がお役に立ちそうであれば幸いです。
 また後で見返せるようにブックマークの方もよろしくお願いいたします。
+
+
+
