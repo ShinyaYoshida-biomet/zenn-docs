@@ -1,6 +1,6 @@
 ---
 title: "ReactでイベントハンドラにDefault Argsを設定する場合の注意点"
-emoji: "📑"
+emoji: "🔨"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: [JavaScript, React, TypeScript]
 published: true
