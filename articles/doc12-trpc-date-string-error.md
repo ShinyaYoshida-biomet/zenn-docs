@@ -9,12 +9,13 @@ published: true
 
 # 背景
 
-## 技術スタック
+再現に必要な各種packageのバージョンは以下の通りです。
+
 - Next.js 15.0系
 - Prisma 5.系統
 - trpc 10.系統
 
-trpcで取得したdataをfrontendで受け取ってuseStateのstateとして取り込もうとした際に下記のエラーが生じた。
+trpcで取得したdataをfrontendで受け取ってuseStateのstateとして取り込もうとした際に下記のエラーが生じました。
 
 ```tsx
 import { useState, useEffect } from 'react';
