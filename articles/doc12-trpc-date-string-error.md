@@ -1,9 +1,9 @@
 ---
-title: ""
-emoji: "🦁"
+title: "tRPCでPrismaのDate型がstringで帰ってくる問題とsuperjsonによる解決策"
+emoji: "🔥"
 type: "tech" # tech: 技術記事 / idea: アイデア
-topics: []
-published: false
+topics: ["trpc", "Prisma", "React.js", "TypeScript", "Next.js"]
+published: true
 ---
 
 
