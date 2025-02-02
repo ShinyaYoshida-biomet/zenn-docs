@@ -54,7 +54,7 @@ https://discord-questions.trpc.io/m/1070455735533703269
 
 [trpcの公式ドキュメント](https://trpc.io/docs/server/data-transformers)でも、
 transformerにsuperjsonを設定するプロセスが記載されています。
-以下は公式ドキュメントの天才です。
+以下は公式ドキュメントの転載です。
 
 ## Server側
 ```ts
@@ -89,17 +89,16 @@ export function App() {
   const [queryClient] = useState(() => new QueryClient());
   const [trpcClient] = useState(() =>
     trpc.createClient({
+      transformer: superjson, // <--　ここに追加
       links: [
         httpBatchLink({
           url: 'http://localhost:3000/trpc',
-          // You can pass any HTTP headers you wish here
           async headers() {
             return {
               authorization: getAuthCookie(),
             };
           },
         }),
-        transformer: superjson, // <--　ここに追加
       ],
     }),
   );
@@ -121,4 +120,4 @@ tRPCは基本的に型安全なAPI通信を実現するために、デフォル�
 しかし、困ったことにJSONシリアライズでは日付やマップ、セットなどの特殊な型を扱うのが難しく、Date型などで正確なデータの受け渡しができない場合があるようです。
 
 そこで、superjsonを導入することで、Date型も正しくシリアライズ／デシリアライズできるようになるということでした。
-試してませんが、transformerをカスタマイズしても同様の効果が得られるようです。
+試しておりませんが、transformerをカスタマイズしても同様の効果が得られるようです。
