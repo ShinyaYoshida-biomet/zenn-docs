@@ -2,7 +2,7 @@
 title: "React-i18nextで翻訳用テキストの一部をハイライトする方法"
 emoji: "🔦"
 type: "tech" # tech: 技術記事 / idea: アイデア
-topics: [react-i18next, i18next, Next.js, React.js, TypeScript]
+topics: [i18next, i18next, Next.js, React.js, TypeScript]
 published: true
 ---
 
@@ -33,7 +33,7 @@ published: true
 
 私の場合、テキストの一部分をハイライトしたい場面に出会いました。
 
-翻訳用のテキスト全てをハイライトしたい場合は、通常styleを当てた `span` などのタグで囲うかと思います。しかしこのタグの部分が国際化対応したい文の一部である場合、どうすればいいか分からず途方に暮れてしまいました。
+翻訳用のテキスト全てをハイライトしたい場合は、通常styleを当てた `span` などのタグで囲うことができるので比較的容易です。しかしこのタグの部分が国際化対応したい文の一部である場合、どうすればいいか分からず途方に暮れてしまいました。
 
 例としては下記の辞書の`name`の部分を黄色くハイライトしたいようなケースです。
 
