@@ -2,7 +2,7 @@
 title: "React-i18nextで翻訳用テキストの一部をハイライトする方法"
 emoji: "🔦"
 type: "tech" # tech: 技術記事 / idea: アイデア
-topics: [i18next, i18next, Next.js, React.js, TypeScript]
+topics: [i18next, Next, React, TypeScript, JavaScript]
 published: true
 ---
 
