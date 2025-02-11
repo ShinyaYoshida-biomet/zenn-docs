@@ -1,6 +1,6 @@
 ---
-title: ""
-emoji: "👏"
+title: "React-i18nextで翻訳用テキストの一部をハイライトする方法"
+emoji: "🔦"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: [react-i18next, i18next, Next.js, React.js, TypeScript]
 published: true
@@ -9,13 +9,60 @@ published: true
 
 
 
-
 # 背景
+`react-i18next` で国際化対応する時に出会った課題です。
 
 
-react-i18nextで国際化対応する時の問題。
-テキストの一部分をハイライトしたい場合、通常はstyleを当てた `span` などのタグで囲む。
-しかしこのタグの部分が国際化対応したい文の一部である場合、どうすればいいかわからず途方に暮れてしまった。
+
+
+## 課題
+
+国際化対応では通常、辞書となるjsonファイルを用意し、その中に翻訳用のテキストを記述します。
+
+**en.json**
+
+```json
+{
+  "welcome": "Welcome!",
+}
+```
+
+**ja.json**
+
+```json
+{
+  "welcome": "ようこそ",
+}
+```
+
+これらのテキストをカスタマイズ(eg. 動的変数の埋め込みやリンクの埋め込みなど)する場合、少々工夫が必要です。
+
+私の場合、テキストの一部分をハイライトしたい場面に出会しました。
+
+翻訳用のテキスト全てをハイライトしたい場合は、通常styleを当てた `span` などのタグで囲うかと思います。
+しかしこのタグの部分が国際化対応したい文の一部である場合、パッとどうすればいいかわからず途方に暮れてしまいました。
+
+例としては下記の辞書の`name`の部分を黄色くハイライトしたいようなケースです。
+
+**en.json**
+
+```json
+{
+  "greeting": "Hello, {{name}}!"
+}
+```
+
+**ja.json**
+
+```json
+{
+  "greeting": "こんにちは、{{name}}さん！"
+}
+```
+
+
+
+## Setup, Version等
 
 ライブラリの説明やsetupの実施方法については、すでに詳しく取り上げてくれている先人がいますので割愛します。
 
@@ -25,8 +72,7 @@ react-i18nextで国際化対応する時の問題。
 
 
 # 結論
-
-Transコンポーネントを使うことで解決できる。
+`react-i18next`に用意されている`Trans`コンポーネントの`components` propertyを使うことで解決できます！
 
 ```tsx
         <Trans
@@ -39,7 +85,8 @@ Transコンポーネントを使うことで解決できる。
 ```
 
 
-コード全貌
+下記がコードの全貌です。
+
 
 ```tsx
 import React from "react";
@@ -104,6 +151,28 @@ function App() {
 }
 
 export default App;
+```
+
+
+辞書ファイルの方も忘れずに設定するようにしましょう。
+`highlight`というキーが `Trans` コンポーネントのcomponents propertyで指定したものに対応します。
+
+**en.json**
+
+```json
+{
+  "welcome": "Welcome!",
+  "greeting": "Hello, <highlight>{{name}}</highlight>!"
+}
+```
+
+**ja.json**
+
+```json
+{
+  "welcome": "ようこそ",
+  "greeting": "こんにちは、<highlight>{{name}}</highlight>さん！"
+}
 ```
 
 
