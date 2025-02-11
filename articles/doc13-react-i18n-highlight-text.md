@@ -6,14 +6,8 @@ topics: [react-i18next, i18next, Next.js, React.js, TypeScript]
 published: true
 ---
 
-
-
-
 # 背景
 `react-i18next` で国際化対応する時に出会った課題です。
-
-
-
 
 ## 課題
 
@@ -23,7 +17,7 @@ published: true
 
 ```json
 {
-  "welcome": "Welcome!",
+  "welcome": "Welcome!"
 }
 ```
 
@@ -31,16 +25,15 @@ published: true
 
 ```json
 {
-  "welcome": "ようこそ",
+  "welcome": "ようこそ"
 }
 ```
 
-これらのテキストをカスタマイズ(eg. 動的変数の埋め込みやリンクの埋め込みなど)する場合、少々工夫が必要です。
+これらのテキストをカスタマイズ（例：動的変数の埋め込みやリンクの埋め込みなど）する場合、少々工夫が必要です。
 
-私の場合、テキストの一部分をハイライトしたい場面に出会しました。
+私の場合、テキストの一部分をハイライトしたい場面に出会いました。
 
-翻訳用のテキスト全てをハイライトしたい場合は、通常styleを当てた `span` などのタグで囲うかと思います。
-しかしこのタグの部分が国際化対応したい文の一部である場合、パッとどうすればいいかわからず途方に暮れてしまいました。
+翻訳用のテキスト全てをハイライトしたい場合は、通常styleを当てた `span` などのタグで囲うかと思います。しかしこのタグの部分が国際化対応したい文の一部である場合、どうすればいいか分からず途方に暮れてしまいました。
 
 例としては下記の辞書の`name`の部分を黄色くハイライトしたいようなケースです。
 
@@ -60,8 +53,6 @@ published: true
 }
 ```
 
-
-
 ## Setup, Version等
 
 ライブラリの説明やsetupの実施方法については、すでに詳しく取り上げてくれている先人がいますので割愛します。
@@ -69,24 +60,27 @@ published: true
 - [react-i18nextを使って、React環境に1から多言語翻訳の仕組みを構築してみる](https://zenn.dev/aldagram_tech/articles/2551d2a969829a)
 - [React-i18nextによるReactアプリの国際化ガイド](https://qiita.com/Exerea/items/cd980562b2a2919a322d)
 
+使用ライブラリのバージョンは下記です。
 
+- react: ^19.0.0
+- react-dom: ^19.0.0
+- react-i18next: ^15.4.0
+- i18next: ^24.2.2
 
 # 結論
 `react-i18next`に用意されている`Trans`コンポーネントの`components` propertyを使うことで解決できます！
 
 ```tsx
-        <Trans
-          i18nKey="greeting"
-          values={{ name: "Test User" }}
-          components={{
-            highlight: <span style={{ backgroundColor: "yellow" }} />,
-          }}
-        />
+<Trans
+  i18nKey="greeting"
+  values={{ name: "Test User" }}
+  components={{
+    highlight: <span style={{ backgroundColor: "yellow" }} />
+  }}
+/>
 ```
 
-
 下記がコードの全貌です。
-
 
 ```tsx
 import React from "react";
@@ -108,7 +102,6 @@ function App() {
         marginX: "auto",
       }}
     >
-
       <div style={{ marginBottom: "1rem" }}>
         <button
           onClick={() => changeLanguage("ja")}
@@ -142,7 +135,7 @@ function App() {
           i18nKey="greeting"
           values={{ name: "Test User" }}
           components={{
-            highlight: <span style={{ backgroundColor: "yellow" }} />,
+            highlight: <span style={{ backgroundColor: "yellow" }} />
           }}
         />
       </p>
@@ -153,9 +146,7 @@ function App() {
 export default App;
 ```
 
-
-辞書ファイルの方も忘れずに設定するようにしましょう。
-`highlight`というキーが `Trans` コンポーネントのcomponents propertyで指定したものに対応します。
+辞書ファイルの方も忘れずに設定するようにしましょう。`highlight`というキーが `Trans` コンポーネントのcomponents propertyで指定したものに対応します。
 
 **en.json**
 
@@ -175,11 +166,9 @@ export default App;
 }
 ```
 
-
 英語の表示
 
 ![alt text](/images/doc13/en.png)
-
 
 日本語の表示
 
