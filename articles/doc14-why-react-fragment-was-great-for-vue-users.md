@@ -3,7 +3,7 @@ title: "Reactを知ってしまった僕がVueに戻れなくなった理由1.~ 
 emoji: "⚛️"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["Vue.js", "React.js", "フロントエンド", "React.Fragment"]
-published: false
+published: true
 ---
 
 # はじめに
