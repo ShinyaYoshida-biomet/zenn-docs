@@ -2,7 +2,7 @@
 title: "Reactを知ってしまった僕がVueに戻れなくなった理由1.~ 直感的なFragmentの挙動 ~"
 emoji: "⚛️"
 type: "tech" # tech: 技術記事 / idea: アイデア
-topics: ["Vue.js", "React.js", "フロントエンド", "React.Fragment"]
+topics: ["Vue", "React", "フロントエンド"]
 published: true
 ---
 
@@ -12,12 +12,11 @@ published: true
 最初は社内企業のMVPを作成するために、Vue.js + Vuetifyを使って簡単なWebアプリケーションを作成するところから始まりました。
 1年くらいはVue.jsを使い続けていましたが、最近はもっぱらReact.js派です。
 
-Frontend開発のイロハがわかっていない(特にHTML,CSSの基本的なマークアップができない)時期に、
-Vue.js + Vuetifyは非常に魅力的でした。
-`v-select`や`v-text-field`などのtagを使うだけで、簡単にフォームを作成できたため、
-短時間でMVPを作成しなければならない私のような初心者には非常にありがたかったです。
+Frontend開発のイロハがわかっていない(特にHTML,CSSの基本的なマークアップができない)時期に、Vue.js + Vuetifyは非常に魅力的でした。
+`v-select`や`v-text-field`などのtagを使うだけで、簡単にフォームを作成できたため、短時間でMVPを作成しなければならない私のような初心者には非常にありがたかったです。
 
 しかし、一度React.jsを触ってしまうと、Vue.jsによるコンポーネントの書き方が少し違和感を感じるようになりました。
+
 特に、React.jsの`Fragment`とVue.jsの`template`の違いについて。
 どちらも、追加のDOM要素を生成せずに複数のHTML要素をグループ化できるという点で共通しています。
 しかし、細かい挙動が異なっており、数年触り続けた結果、React.jsの`Fragment`の方が使いやすいと感じ、Vue.jsに二度と戻れない体となってしまいました。
@@ -51,7 +50,8 @@ const condition = false;
 ![alt text](/images/doc14/image.png)
 
 
-`condition` 変数の値に寄らずに、`Hello World!`が表示されてしまいます。
+❗❗❗ `condition` 変数の値に寄らずに、`Hello World!`が表示されてしまいます。
+
 これはrootの `<template>` タグが Vue Loader によってコンパイルされる際にv-ifが無視され、常にコンポーネント全体がレンダリングされてしまうためです。
 
 [stackoverflow](https://stackoverflow.com/questions/47459404/v-if-on-a-component-template-tag)でも同様の質問がされています。
@@ -77,7 +77,7 @@ const condition = false;
 
 直感的ではない上に、一手間加える必要があるため、Vue.jsの`template`タグを使ったコンポーネント全体の条件付きrenderingは少し使いづらいと感じます。
 
-一方で、React.jsの`Fragment`は、コンポーネント全体を条件付きrenderingする際に非常に直感的です(React.jsの`Fragment`が <></> で省略して表現できることについてここでは詳細に触れません)。
+一方で、React.jsの`Fragment`は、コンポーネント全体を条件付きrenderingする際に非常に直感的です(React.jsの`Fragment`が `<></>` で省略して表現できることについてここでは詳細に触れません)。
 
 ```jsx
 export default function App() {
@@ -149,5 +149,4 @@ export default function App() {
 Vueは明らかにReactを意識してアップデートを重ねており、年々改善されていることは認めます。
 しかし、React.jsの直感的な使いやすさには敵わないというのが私の個人的な見解です。
 というのも、`Fragment`に限らず多くの点でReact.jsの方が使いやすいと感じるからです。
-
-今後機会がありましたら、Reactを知ってしまった僕がVueに戻れなくなった理由について別の観点から記事を追加したいと思います。
+今後機会がありましたら、Reactを知ってしまった僕がVueに戻れなくなった理由について、他の観点から記事を追加したいと思います。
